@@ -1,0 +1,8 @@
+# 수정한 코드 깃허브에 올리는것 
+git add .
+git commit -m '커밋할 내용'
+git push
+
+# 깃 상태 파악
+git status
+
