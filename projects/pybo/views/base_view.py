@@ -12,15 +12,7 @@ def index(request):
     # 입력 파라미터
     page = request.GET.get('page', '1')  # 페이지
     kw = request.GET.get('kw', '')  # 검색어
-    so = request.GET.get('so', 'recent')  # 정렬기준
 
-    # 정렬
-    if so == 'recommend':
-        book_list = Book.objects.annotate(num_voter=Count('voter')).order_by('-num_voter', '-create_date')
-    elif so == 'popular':
-        book_list = Book.objects.annotate(num_answer=Count('answer')).order_by('-num_answer', '-create_date')
-    else:  # recent
-        book_list = Book.objects.order_by('-create_date')
 
     # 검색
     if kw:
@@ -35,7 +27,7 @@ def index(request):
     paginator = Paginator(book_list, 10)  # 페이지당 10개씩 보여주기
     page_obj = paginator.get_page(page)
 
-    context = {'book_list': page_obj, 'page': page, 'kw': kw, 'so': so}  # <------ so 추가
+    context = {'book_list': page_obj, 'page': page, 'kw': kw}  # <------ so 추가
     return render(request, 'pybo/book_list.html', context)
 
 
